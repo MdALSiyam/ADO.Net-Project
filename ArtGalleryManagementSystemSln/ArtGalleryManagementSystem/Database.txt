@@ -1,0 +1,155 @@
+﻿
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Art Gallery Management System
+=============================
+
+-----< Tables >-----
+
+Table-ArtGenre
+--------------
+CREATE TABLE [dbo].[ArtGenre]
+(
+	[GenreId] INT NOT NULL,
+	[GenreTitle] VARCHAR (20) NOT NULL,
+	PRIMARY KEY CLUSTERED ([GenreId] ASC)
+);
+
+Table-ArtMaster
+----------------
+CREATE TABLE [dbo].[ArtMaster]
+(
+	[ArtId] INT IDENTITY (1,1) NOT NULL,
+	[ArtCode] VARCHAR (10) NOT NULL,
+	[ArtTitle] VARCHAR (50) NOT NULL,
+	[GenreId] INT NOT NULL,
+	[ArtistFName] VARCHAR (20) NOT NULL,
+	[ArtistLName] VARCHAR (20) NOT NULL,
+	[Gender] CHAR (6) NOT NULL,
+	[CreationDate] DATETIME NOT NULL,
+	[Price] INT NOT NULL,
+	[IsAvailable] BIT NOT NULL,
+	[ImagePath] VARCHAR (MAX) NULL,
+	PRIMARY KEY CLUSTERED ([ArtId] ASC),
+	FOREIGN KEY ([GenreId]) REFERENCES [dbo].[ArtGenre] ([GenreId]) ON DELETE CASCADE
+);
+
+Table-ArtDetails
+----------------
+CREATE TABLE [dbo].[ArtDetails] (
+    [DetailsId]       INT          IDENTITY (1, 1) NOT NULL,
+    [ExhibitionTitle] VARCHAR (50) NOT NULL,
+    [ExhibitionDuration] INT NOT NULL,
+    [ArtId]           INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([DetailsId] ASC),
+    FOREIGN KEY ([ArtId]) REFERENCES [dbo].[ArtMaster] ([ArtId]) ON DELETE CASCADE
+);
+
+
+===================================================================================
+===================================================================================
+
+-----< Store Procedures >-----
+
+CREATE PROC ArtDetailsAddOrEdit
+@DetailsId	INT,
+@ExhibitionTitle VARCHAR (50),
+@ExhibitionDuration INT,
+@ArtId INT
+AS
+IF @DetailsId = 0
+INSERT INTO ArtDetails
+(ArtId, ExhibitionTitle, ExhibitionDuration)
+VALUES
+(@ArtId, @ExhibitionTitle, @ExhibitionDuration)
+ELSE
+UPDATE ArtDetails
+SET ArtId=@ArtId, ExhibitionTitle=@ExhibitionTitle, ExhibitionDuration=@ExhibitionDuration
+WHERE DetailsId=@DetailsId
+GO
+
+----------------------------
+CREATE PROC ArtDetailsDelete 
+@DetailsId INT
+AS
+BEGIN
+DELETE FROM ArtDetails 
+WHERE DetailsId=@DetailsId
+END
+GO
+
+------------------------------
+CREATE PROC ArtMasterAddOrEdit
+@ArtId INT,
+@ArtCode VARCHAR (10),
+@ArtTitle VARCHAR (50),  
+@GenreId INT,  
+@ArtistFName VARCHAR (20),
+@ArtistLName VARCHAR (20),
+@Gender CHAR (6),      
+@CreationDate DATETIME,               
+@Price INT,           
+@IsAvailable BIT,
+@ImagePath VARCHAR (MAX)
+AS
+IF @ArtId = 0
+BEGIN
+INSERT INTO ArtMaster
+(ArtCode, ArtTitle, GenreId, ArtistFName, ArtistLName, Gender, CreationDate, Price, IsAvailable, ImagePath)
+VALUES
+(@ArtCode, @ArtTitle, @GenreId, @ArtistFName, @ArtistLName, @Gender, @CreationDate, @Price, @IsAvailable, @ImagePath)
+SELECT SCOPE_IDENTITY();
+END
+ELSE
+BEGIN
+UPDATE ArtMaster SET 
+ArtCode=@ArtCode, ArtTitle=@ArtTitle, GenreId=@GenreId, ArtistFName=@ArtistFName, ArtistLName=@ArtistLName, Gender=@Gender, CreationDate=@CreationDate, Price=@Price, IsAvailable=@IsAvailable, ImagePath=@ImagePath
+WHERE ArtId=@ArtId
+SELECT @ArtId
+END
+GO
+
+---------------------------
+CREATE PROC ArtMasterDelete
+@ArtId INT
+AS
+BEGIN
+-----Master-----
+DELETE FROM ArtMaster WHERE ArtId=@ArtId
+-----Details-----
+DELETE FROM ArtDetails WHERE ArtId=@ArtId
+END
+GO
+
+-----------------------
+CREATE PROC ViewArtById
+@ArtId INT
+AS
+BEGIN
+-----Master-----
+SELECT * FROM ArtMaster WHERE ArtId=@ArtId
+-----Details-----
+SELECT * FROM ArtDetails WHERE ArtId=@ArtId
+END
+GO
+
+----------------------
+CREATE PROC ViewAllArt
+AS
+BEGIN
+SELECT A.ArtId, A.ArtCode, A.ArtTitle, G.GenreTitle, A.ArtistFName, A.ArtistLName, A.Gender, A.CreationDate, A.Price, A.IsAvailable, A.ImagePath
+FROM ArtMaster A
+JOIN ArtGenre G
+ON A.GenreId=G.GenreId
+END
+
+-------------------------------------------------------------------------------------------------------------------------------
+SELECT M.ArtId, M.ArtCode, M.ArtTitle, G.GenreId, G.GenreTitle, M.ArtistFName, M.ArtistLName, M.Gender, M.CreationDate, M.Price, M.IsAvailable, M.ImagePath,
+(SELECT SUM(ExhibitionDuration) FROM ArtDetails AS D WHERE D.ArtId=M.ArtId ) AS TotalDuration FROM ArtMaster M JOIN ArtGenre G ON M.GenreId=G.GenreId
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+
+

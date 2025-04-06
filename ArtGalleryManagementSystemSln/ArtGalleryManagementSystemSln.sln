@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtGalleryManagementSystem", "ArtGalleryManagementSystem\ArtGalleryManagementSystem.csproj", "{E0484153-4A2B-4755-B516-9836DD26AAD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0484153-4A2B-4755-B516-9836DD26AAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0484153-4A2B-4755-B516-9836DD26AAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0484153-4A2B-4755-B516-9836DD26AAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0484153-4A2B-4755-B516-9836DD26AAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0143C547-C5DE-4A13-A4FD-E1067DF301CA}
+	EndGlobalSection
+EndGlobal

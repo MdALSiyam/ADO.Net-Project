@@ -1,0 +1,43 @@
+﻿Hello and welcome to my ADO.NET Windows From App with CrystalReport
+ 
+  This Windows From App is about Art Gallery Management System
+
+  The first step of using this app is to Start the project by clicking the Start button or by
+ 
+  Pressing F5 on the keyboard.
+
+  After a few seconds, web from will appear on your display.
+
+  Please enter the following information in this order.
+
+
+  #To Save The Patient Information:
+  1.Enter Art Code (0-9)|(A-Z,a-z)  Ex- 1235, 1242Aq , A140 etc.
+
+  2.Enter Art Title (A-Z,a-z)  Ex- Starry Night, Sunshine etc.
+
+  3. Please select the Genre by clicking the "Genre" box with your mouse.
+
+  4. Enter the Artist First Name, only string data (A-Z,a-z), such as Ex-Rakib, Sayem, etc.
+
+  5. Enter the Artist Last Name only string data (A-Z,a-z)  Ex- Khan, Hossan etc.
+
+  6. Please select the Artist Gender Male/Female by clicking with your mouse.
+
+  7. Please select the date "Creation Date" box by clicking with your mouse.
+
+  8.Enter the Price only in int data (0-9), e.g., 25, 57, 68, etc.
+
+  9. If the Artwork is sold, click the "Is Available?" box.
+
+  10. Enter a Art picture by clicking on the "Upload" button then select the picture you want to submit.
+
+  11. Enter the Exhibition Title where the Artwork is placed in the "Exhibition Title" coloum.
+
+  12. Enter the Exhibiton Duration in the "Days of Duration" column.
+
+  12. Clicked the "Save" button to save the Art information.
+
+  ----------------------------------------------------------
+  -----------------------< Thank You >------------------------
+  ----------------------------------------------------------
